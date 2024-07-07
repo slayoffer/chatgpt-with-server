@@ -1,0 +1,30 @@
+services:
+  chatpad:
+    container_name: chatpad
+    image: slayoffer/chatpad:latest
+    restart: unless-stopped
+    platform: linux/amd64
+    pull_policy: always
+    environment:
+      PROXY_URL: "https://proxy.com"
+    ports:
+      - 8080:80
+    networks:
+      - proxy
+
+  openai-proxy:
+    container_name: openai-proxy
+    image: slayoffer/openai-proxy:latest
+    restart: unless-stopped
+    platform: linux/amd64
+    pull_policy: always
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

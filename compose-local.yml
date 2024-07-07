@@ -1,0 +1,22 @@
+services:
+  chatpad:
+    container_name: chatpad
+    image: slayoffer/chatpad:latest
+    restart: unless-stopped
+    platform: linux/amd64
+    pull_policy: always
+    env_file:
+      - .env
+    ports:
+      - 8080:80
+
+  openai-proxy:
+    container_name: openai-proxy
+    image: slayoffer/openai-proxy:latest
+    restart: unless-stopped
+    platform: linux/amd64
+    pull_policy: always
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
